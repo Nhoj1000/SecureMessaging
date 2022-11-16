@@ -1,11 +1,14 @@
-﻿using System.Text.Json;
+﻿// Author: John Kudela
+
+using System.Text.Json;
+using SecureMessaging.Model;
 
 namespace SecureMessaging;
 
 /*
- * This class manages the local public and private key storage
+ * This class manages local key storage
  */
-public class KeyManager
+public class KeyStorage
 {
     // stores current working directory string
     private static readonly string Dir = Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar;

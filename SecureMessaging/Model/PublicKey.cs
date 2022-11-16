@@ -1,4 +1,6 @@
-﻿namespace SecureMessaging;
+﻿// Author: John Kudela
+
+namespace SecureMessaging.Model;
 
 public class PublicKey
 {
