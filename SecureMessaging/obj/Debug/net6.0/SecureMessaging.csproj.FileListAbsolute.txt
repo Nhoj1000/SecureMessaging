@@ -1,0 +1,15 @@
+D:\School\RIT\2022Fall\CSCI251\SecureMessaging\SecureMessaging\bin\Debug\net6.0\SecureMessaging.exe
+D:\School\RIT\2022Fall\CSCI251\SecureMessaging\SecureMessaging\bin\Debug\net6.0\SecureMessaging.deps.json
+D:\School\RIT\2022Fall\CSCI251\SecureMessaging\SecureMessaging\bin\Debug\net6.0\SecureMessaging.runtimeconfig.json
+D:\School\RIT\2022Fall\CSCI251\SecureMessaging\SecureMessaging\bin\Debug\net6.0\SecureMessaging.dll
+D:\School\RIT\2022Fall\CSCI251\SecureMessaging\SecureMessaging\bin\Debug\net6.0\SecureMessaging.pdb
+D:\School\RIT\2022Fall\CSCI251\SecureMessaging\SecureMessaging\obj\Debug\net6.0\SecureMessaging.csproj.AssemblyReference.cache
+D:\School\RIT\2022Fall\CSCI251\SecureMessaging\SecureMessaging\obj\Debug\net6.0\SecureMessaging.GeneratedMSBuildEditorConfig.editorconfig
+D:\School\RIT\2022Fall\CSCI251\SecureMessaging\SecureMessaging\obj\Debug\net6.0\SecureMessaging.AssemblyInfoInputs.cache
+D:\School\RIT\2022Fall\CSCI251\SecureMessaging\SecureMessaging\obj\Debug\net6.0\SecureMessaging.AssemblyInfo.cs
+D:\School\RIT\2022Fall\CSCI251\SecureMessaging\SecureMessaging\obj\Debug\net6.0\SecureMessaging.csproj.CoreCompileInputs.cache
+D:\School\RIT\2022Fall\CSCI251\SecureMessaging\SecureMessaging\obj\Debug\net6.0\SecureMessaging.dll
+D:\School\RIT\2022Fall\CSCI251\SecureMessaging\SecureMessaging\obj\Debug\net6.0\refint\SecureMessaging.dll
+D:\School\RIT\2022Fall\CSCI251\SecureMessaging\SecureMessaging\obj\Debug\net6.0\SecureMessaging.pdb
+D:\School\RIT\2022Fall\CSCI251\SecureMessaging\SecureMessaging\obj\Debug\net6.0\SecureMessaging.genruntimeconfig.cache
+D:\School\RIT\2022Fall\CSCI251\SecureMessaging\SecureMessaging\obj\Debug\net6.0\ref\SecureMessaging.dll
