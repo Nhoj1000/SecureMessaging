@@ -24,7 +24,10 @@ public class ProgramManager
 
     public bool GetKey(string email)
     {
-        return false;
+        var key = RestClient.GetKey(email);
+        if (key == null) return false;
+        KeyStorage.SetOtherPublicKey(key);
+        return true;
     }
 
     public bool SendMsg(string email, string message)
