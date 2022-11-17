@@ -1,71 +1,86 @@
 ﻿// Author: John Kudela
 
+using SecureMessaging.Model;
+
 namespace SecureMessaging;
 
 /*
  * The heart of the program, it has all the functions that the user can do and
- * feeds them to the correct utility classes
+ * feeds them to the correct utility classes then notifies user of process status
  */
 public class ProgramManager
 {
-    private static readonly MessagingRestClient RestClient = new();
-    private static readonly KeyStorage KeyStorage = new();
-    private static readonly PrimeFinder PrimeFinder = new();
+    private readonly MessagingRestClient _restClient = new();
+    private readonly EncryptionUtility _encryptionUtility = new();
+    private readonly KeyStorage _keyStorage = new();
+    private readonly PrimeFinder _primeFinder = new();
 
-    public bool KeyGen(int keysize)
+    public void KeyGen(int keysize)
     {
-        return false;
     }
 
-    public bool SendKey(string email)
+    public void SendKey(string email)
     {
-        return false;
+        var publicKey = _keyStorage.GetMyPublicKey();
+        if (publicKey == null)
+        {
+            Console.WriteLine("No private key exists locally");
+        }
+        else
+        {
+            publicKey.Email = email;
+            Console.WriteLine(_restClient.PutKey(publicKey)
+                ? "Key saved"
+                : $"Unable to save key to server for ${email}");
+        }
     }
 
-    public bool GetKey(string email)
+    public void GetKey(string email)
     {
-        var key = RestClient.GetKey(email);
-        if (key == null) return false;
-        KeyStorage.SetOtherPublicKey(key);
-        return true;
+        var key = _restClient.GetKey(email);
+        if (key == null)
+        {
+            Console.WriteLine($"Unable to retrieve key from server for ${email}");
+        }
+        else if (!_keyStorage.SetOtherPublicKey(key))
+        {
+            Console.WriteLine($"Unable to save key locally for ${email}");
+        }
     }
 
-    public bool SendMsg(string email, string message)
+    public void SendMsg(string email, string message)
     {
-        return false;
+        var userKey = _keyStorage.GetOtherPublicKey(email);
+        if (userKey == null)
+        {
+            Console.WriteLine($"Key does not exist for ${email}");
+        }
+        else
+        {
+            var encodedMsg = new Message(email, _encryptionUtility.EncryptMessage(message, userKey.Key));
+            Console.WriteLine(_restClient.PutMessage(encodedMsg)
+                ? "Message written"
+                : $"Unable to send message to server for ${email}");
+        }
     }
 
-    public bool GetMsg(string email)
+    public void GetMsg(string email)
     {
-        return false;
+        var myKey = _keyStorage.GetPrivateKey();
+        if (myKey == null)
+        {
+            Console.WriteLine("No private key exists locally");
+        }
+        else if (!myKey.Email.Contains(email))
+        {
+            Console.WriteLine($"No private key exists locally for ${email}");
+        }
+        else
+        {
+            var encryptedMessage = _restClient.GetMessage(email);
+            Console.WriteLine(encryptedMessage == null
+                ? $"Unable to find message on server for email ${email}"
+                : _encryptionUtility.DecryptMessage(encryptedMessage.Content, myKey.Key));
+        }
     }
 }
-
-
-// var key = Client.GetKey(email);
-// Console.WriteLine(key?.Email);
-// Console.WriteLine(key?.Key);
-
-// var message = Client.GetMessage(email);
-// Console.WriteLine(message?.Email);
-// Console.WriteLine(message?.Content);
-//
-// var success = Client.PutKey(new PublicKey(email, "testKey4"));
-// Console.WriteLine(success);
-//
-// success = Client.PutMessage(new Message(email, "testMessage4"));
-// Console.WriteLine(success);
-//
-// key = Client.GetKey(email);
-// Console.WriteLine(key?.Email);
-// Console.WriteLine(key?.Key);
-//
-// message = Client.GetMessage(email);
-// Console.WriteLine(message?.Email);
-// Console.WriteLine(message?.Content);
-//
-//
-// Console.WriteLine(Storage.SetOtherPublicKey(key));
-// var fileKey = Storage.GetOtherPublicKey(email);
-// Console.WriteLine("file: " + fileKey?.Email);
-// Console.WriteLine("file: " + fileKey?.Key);

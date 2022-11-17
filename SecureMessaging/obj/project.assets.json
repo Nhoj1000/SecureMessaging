@@ -8,24 +8,26 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Nhoj1\\.nuget\\packages\\": {}
+    "C:\\Users\\Nhoj1000\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Nhoj1\\Desktop\\School\\CSCI251\\SecureMessaging\\SecureMessaging\\SecureMessaging\\SecureMessaging.csproj",
+      "projectUniqueName": "D:\\School\\RIT\\2022Fall\\CSCI251\\SecureMessaging\\SecureMessaging\\SecureMessaging.csproj",
       "projectName": "SecureMessaging",
-      "projectPath": "C:\\Users\\Nhoj1\\Desktop\\School\\CSCI251\\SecureMessaging\\SecureMessaging\\SecureMessaging\\SecureMessaging.csproj",
-      "packagesPath": "C:\\Users\\Nhoj1\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Nhoj1\\Desktop\\School\\CSCI251\\SecureMessaging\\SecureMessaging\\SecureMessaging\\obj\\",
+      "projectPath": "D:\\School\\RIT\\2022Fall\\CSCI251\\SecureMessaging\\SecureMessaging\\SecureMessaging.csproj",
+      "packagesPath": "C:\\Users\\Nhoj1000\\.nuget\\packages\\",
+      "outputPath": "D:\\School\\RIT\\2022Fall\\CSCI251\\SecureMessaging\\SecureMessaging\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Nhoj1\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Nhoj1000\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
