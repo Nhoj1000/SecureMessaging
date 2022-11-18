@@ -1,4 +1,6 @@
-﻿using System.Numerics;
+﻿// Author: John Kudela
+
+using System.Numerics;
 using System.Text;
 
 namespace SecureMessaging;
@@ -24,11 +26,30 @@ public class EncryptionUtility
         var trueD = values[0];
         var trueN = values[1];
 
-        var msgBytes = Encoding.UTF8.GetBytes(msg);
+        var msgBytes = Convert.FromBase64String(msg);
         var ciphertext = new BigInteger(msgBytes);
 
         var plaintext = BigInteger.ModPow(ciphertext, trueD, trueN);
         return Encoding.UTF8.GetString(plaintext.ToByteArray());
+    }
+
+    public string GenerateKeyFromComponents(BigInteger first, BigInteger n)
+    {
+        var ans = new List<byte>();
+
+        var firstCountBytes = BitConverter.GetBytes(first.GetByteCount());
+        if (BitConverter.IsLittleEndian) Array.Reverse(firstCountBytes);
+        ans.AddRange(firstCountBytes);
+
+        ans.AddRange(first.ToByteArray(true));
+
+        var nCountBytes = BitConverter.GetBytes(n.GetByteCount());
+        if (BitConverter.IsLittleEndian) Array.Reverse(nCountBytes);
+        ans.AddRange(nCountBytes);
+        
+        ans.AddRange(n.ToByteArray(false));
+
+        return Convert.ToBase64String(ans.ToArray());
     }
 
     private static BigInteger[] GetKeyComponents(string key)
@@ -38,7 +59,7 @@ public class EncryptionUtility
         // get e/d and make sure it's big endian
         var firstBytes = keyBytes[..4];
         if (BitConverter.IsLittleEndian) Array.Reverse(firstBytes);
-        var first = BitConverter.ToInt32(firstBytes, 0);
+        var first = BitConverter.ToInt32(firstBytes);
 
         // read E/D as e/d bytes and ensure little endian
         var trueFirstBytes = keyBytes[4..(4 + first)];
@@ -48,7 +69,7 @@ public class EncryptionUtility
         // get n and ensure big endian
         var nBytes = keyBytes[(4 + first)..(4 + first + 4)];
         if (BitConverter.IsLittleEndian) Array.Reverse(nBytes);
-        var n = BitConverter.ToInt32(nBytes, 0);
+        var n = BitConverter.ToInt32(nBytes);
 
         // get N and ensure little endian
         var trueNBytes = keyBytes[(4 + first + 4)..(4 + first + 4 + n)];
@@ -58,8 +79,9 @@ public class EncryptionUtility
         BigInteger[] values = { trueFirst, trueN };
         return values;
     }
+    
 
-    private static BigInteger ModInverse(BigInteger a, BigInteger n)
+    public static BigInteger ModInverse(BigInteger a, BigInteger n)
     {
         BigInteger i = n, v = 0, d = 1;
         while (a > 0)
@@ -76,4 +98,5 @@ public class EncryptionUtility
         if (v < 0) v = (v + n) % n;
         return v;
     }
+    
 }

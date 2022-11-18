@@ -64,11 +64,9 @@ public static class BigIntExtension
             for (var j = 0; j < r - 1; j++)
             {
                 x = BigInteger.ModPow(x, 2, value);
-                if (x == value - 1)
-                {
-                    found = true;
-                    break;
-                }
+                if (x != value - 1) continue;
+                found = true;
+                break;
             }
 
             if (found)
