@@ -2,6 +2,9 @@
 
 namespace SecureMessaging.Model;
 
+/*
+ * Stores your private key locally
+ */
 public class PrivateKey
 {
     public PrivateKey(string[] email, string key)

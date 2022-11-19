@@ -2,6 +2,9 @@
 
 namespace SecureMessaging.Model;
 
+/*
+ * Used for sending a message to the server
+ */
 public class Message
 {
     public Message(string email, string content)

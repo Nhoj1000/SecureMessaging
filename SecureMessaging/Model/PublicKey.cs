@@ -2,6 +2,9 @@
 
 namespace SecureMessaging.Model;
 
+/*
+ * Stores your public key locally
+ */
 public class PublicKey
 {
     public PublicKey(string email, string key)

@@ -5,8 +5,17 @@ using System.Text;
 
 namespace SecureMessaging;
 
+/// <summary>
+/// Core utility class for encrypting/decrypting mesages
+/// </summary>
 public class EncryptionUtility
 {
+    /// <summary>
+    /// Encrypts a message given a public key
+    /// </summary>
+    /// <param name="msg">The plaintext message to send</param>
+    /// <param name="publicKey">The public key</param>
+    /// <returns>Base 64 encrypted string</returns>
     public string EncryptMessage(string msg, string publicKey)
     {
         var values = GetKeyComponents(publicKey);
@@ -20,6 +29,12 @@ public class EncryptionUtility
         return Convert.ToBase64String(ciphertext.ToByteArray());
     }
 
+    /// <summary>
+    /// Decrypts a message
+    /// </summary>
+    /// <param name="msg">The base 64 encrypted string</param>
+    /// <param name="privateKey">The private key to decode the message</param>
+    /// <returns>The decoded message</returns>
     public string DecryptMessage(string msg, string privateKey)
     {
         var values = GetKeyComponents(privateKey);
@@ -33,6 +48,12 @@ public class EncryptionUtility
         return Encoding.UTF8.GetString(plaintext.ToByteArray());
     }
 
+    /// <summary>
+    /// Helper method to generate a key given an E/D and an N value
+    /// </summary>
+    /// <param name="first">E or D value</param>
+    /// <param name="n">N value</param>
+    /// <returns>Base 64 string with the key in it</returns>
     public string GenerateKeyFromComponents(BigInteger first, BigInteger n)
     {
         var ans = new List<byte>();
@@ -46,12 +67,17 @@ public class EncryptionUtility
         var nCountBytes = BitConverter.GetBytes(n.GetByteCount());
         if (BitConverter.IsLittleEndian) Array.Reverse(nCountBytes);
         ans.AddRange(nCountBytes);
-        
+
         ans.AddRange(n.ToByteArray(false));
 
         return Convert.ToBase64String(ans.ToArray());
     }
 
+    /// <summary>
+    /// Breaks an encoded key down into an E/D and N
+    /// </summary>
+    /// <param name="key">The base 64 encoded key string</param>
+    /// <returns>An array with E/D in index 0 and N in index 1</returns>
     private static BigInteger[] GetKeyComponents(string key)
     {
         var keyBytes = Convert.FromBase64String(key);
@@ -79,8 +105,13 @@ public class EncryptionUtility
         BigInteger[] values = { trueFirst, trueN };
         return values;
     }
-    
 
+    /// <summary>
+    /// Modinverse method for finding a D given an E and phi(n)
+    /// </summary>
+    /// <param name="a">E value</param>
+    /// <param name="n">phi(n)</param>
+    /// <returns></returns>
     public static BigInteger ModInverse(BigInteger a, BigInteger n)
     {
         BigInteger i = n, v = 0, d = 1;
@@ -98,5 +129,4 @@ public class EncryptionUtility
         if (v < 0) v = (v + n) % n;
         return v;
     }
-    
 }

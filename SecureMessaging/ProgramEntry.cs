@@ -11,16 +11,19 @@ namespace SecureMessaging
 {
     public class SecureMessaging
     {
+        // Drives the program once user input is decoded
         private static readonly ProgramManager ProgramManager = new();
 
         private static void Main(string[] args)
         {
+            // ensure args were passed in
             if (args.Length == 0)
             {
                 PrintUsageError("<option>", "<other arguments>");
                 return;
             }
 
+            // determine how to check arguments and options
             switch (args[0])
             {
                 case "keyGen":
