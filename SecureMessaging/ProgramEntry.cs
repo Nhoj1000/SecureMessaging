@@ -39,7 +39,6 @@ namespace SecureMessaging
                     else
                     {
                         ProgramManager.KeyGen(keysize);
-                        // process this
                     }
 
                     break;

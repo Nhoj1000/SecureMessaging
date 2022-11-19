@@ -15,8 +15,8 @@ public class EncryptionUtility
     /// </summary>
     /// <param name="msg">The plaintext message to send</param>
     /// <param name="publicKey">The public key</param>
-    /// <returns>Base 64 encrypted string</returns>
-    public string EncryptMessage(string msg, string publicKey)
+    /// <returns>Base 64 encrypted string or null if msg is too big</returns>
+    public string? EncryptMessage(string msg, string publicKey)
     {
         var values = GetKeyComponents(publicKey);
         var trueE = values[0];
@@ -24,6 +24,8 @@ public class EncryptionUtility
 
         var msgBytes = Encoding.UTF8.GetBytes(msg);
         var plaintext = new BigInteger(msgBytes);
+
+        if (plaintext > (trueN - 1)) return null;
 
         var ciphertext = BigInteger.ModPow(plaintext, trueE, trueN);
         return Convert.ToBase64String(ciphertext.ToByteArray());

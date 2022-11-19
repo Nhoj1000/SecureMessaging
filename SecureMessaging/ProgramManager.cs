@@ -107,10 +107,17 @@ public class ProgramManager
         }
         else
         {
-            var encodedMsg = new Message(email, _encryptionUtility.EncryptMessage(message, userKey.Key));
-            Console.WriteLine(_restClient.PutMessage(encodedMsg)
-                ? "Message written"
-                : $"Unable to send message to server for {email}");
+            var encodedMsg = _encryptionUtility.EncryptMessage(message, userKey.Key);
+            if (encodedMsg == null)
+            {
+                Console.WriteLine("Message is too long");
+            }
+            else
+            {
+                Console.WriteLine(_restClient.PutMessage(new Message(email, encodedMsg))
+                    ? "Message written"
+                    : $"Unable to send message to server for {email}");
+            }
         }
     }
 
